@@ -89,13 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Admin Sign In</h1>
         <p>Enter your admin credentials</p>
 
-        <?php
-        session_start();
-        if (isset($_SESSION['error'])):
-        ?>
+        <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-error">
                 <span class="alert-icon">&#10060;</span>
-                <p><?= $_SESSION['error'] ?></p>
+                <p><?= htmlspecialchars($_SESSION['error']) ?></p>
                 <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
             </div>
         <?php unset($_SESSION['error']);
@@ -104,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" action="">
             <div class="form-group">
                 <label for="email">Admin Email</label>
-                <input type="email" id="email" name="email" placeholder="admin@realestate.co.ke" required>
+                <input type="email" id="email" name="email" placeholder="admin@flexispace.co.ke" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
