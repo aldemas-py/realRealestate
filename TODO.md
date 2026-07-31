@@ -42,6 +42,16 @@
 - [x] sql/schema.sql - Full schema with triggers & constraints
 - [x] sql/migration.sql - Migration support
 
+## Phase 5: Session Security & Timeout ✅
+- [x] Session cookie expires on browser close (cookie_lifetime=0)
+- [x] 5-minute inactivity timeout (server-side enforcement on every request)
+- [x] Client-side proactive inactivity detection with 30-second warning modal
+- [x] Auto-redirect to login on session expiry
+- [x] Session ID regeneration on login (prevents session fixation)
+- [x] HttpOnly + SameSite cookie hardening
+- [x] sendBeacon for reliable background logout on browser/tab close
+- [x] Session timeout logged to compliance audit trail
+
 ## Key Features Implemented
 | Feature | Status |
 |---------|--------|

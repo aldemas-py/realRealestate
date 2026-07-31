@@ -23,7 +23,7 @@ $isAdmin = isAdmin();
         rel="stylesheet">
 </head>
 
-<body>
+<body data-user-logged-in="<?= $currentUser ? 'true' : 'false' ?>" data-session-timeout="<?= SESSION_TIMEOUT ?>">
     <!-- Navigation -->
     <header class="site-header">
         <div class="container">
@@ -41,24 +41,24 @@ $isAdmin = isAdmin();
             </nav>
             <div class="header-actions">
                 <?php if ($currentUser): ?>
-                    <div class="user-dropdown">
-                        <button class="btn btn-ghost user-btn">
-                            <span class="user-avatar"><?= strtoupper(substr($currentUser['full_name'], 0, 1)) ?></span>
-                            <?= htmlspecialchars($currentUser['full_name']) ?>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="/work_folder/realRealestate/public/profile.php">My Profile</a>
-                            <?php if ($isAdmin): ?>
-                                <a href="/work_folder/realRealestate/admin/index.php">Admin Panel</a>
-                            <?php endif; ?>
-                            <a href="/work_folder/realRealestate/public/logout.php">Logout</a>
-                        </div>
+                <div class="user-dropdown">
+                    <button class="btn btn-ghost user-btn">
+                        <span class="user-avatar"><?= strtoupper(substr($currentUser['full_name'], 0, 1)) ?></span>
+                        <?= htmlspecialchars($currentUser['full_name']) ?>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="/work_folder/realRealestate/public/profile.php">My Profile</a>
+                        <?php if ($isAdmin): ?>
+                        <a href="/work_folder/realRealestate/admin/index.php">Admin Panel</a>
+                        <?php endif; ?>
+                        <a href="/work_folder/realRealestate/public/logout.php">Logout</a>
+                    </div>
                     <?php else: ?>
-                        <a href="/work_folder/realRealestate/public/login.php" class="btn btn-outline">Login</a>
-                        <a href="/work_folder/realRealestate/public/register.php" class="btn btn-primary">Get Started</a>
+                    <a href="/work_folder/realRealestate/public/login.php" class="btn btn-outline">Login</a>
+                    <a href="/work_folder/realRealestate/public/register.php" class="btn btn-primary">Get Started</a>
                     <?php endif; ?>
                     <button class="mobile-menu-toggle" aria-label="Toggle menu">&#9776;</button>
-                    </div>
+                </div>
     </header>
 
     <main class="main-content">

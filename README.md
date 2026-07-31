@@ -528,10 +528,65 @@ All policies are managed via **Admin → Policy Engine** (`/admin/policies.php`)
 - Triggers enforce automatic compliance (space status sync, audit logging)
 - ENUM types restrict status values to valid state machine transitions
 
-### Session Security
-- PHP sessions with server-side storage
-- Session timeout and regeneration on login
-- Admin and user sessions share the same system but role-checked separately
+### Session Security (Policy: 5-Minute Inactivity Timeout)
+
+The system enforces strict session lifecycle controls:
+
+| Feature | Implementation |
+|---------|---------------|
+| **Browser-close logout** | Session cookie is configured with `lifetime = 0`, so the cookie (and thus the session) is automatically destroyed when the browser is closed |
+| **Inactivity timeout** | Server-side check runs on **every page load** (`checkSessionTimeout()`). If no activity for **5 minutes (300 seconds)**, the session is destroyed and the user is redirected to login |
+| **Client-side detection** | JavaScript tracks user activity (click, keydown, mousemove, scroll, touch). At 4.5 minutes a **30-second warning modal** appears ("Session Expiring Soon"). If the user clicks "Continue", the timer resets. At 5 minutes, the user is auto-redirected to logout |
+| **Session fixation protection** | `session_regenerate_id(true)` is called on every login |
+| **Cookie hardening** | `HttpOnly` (prevents JS access), `SameSite=Lax` (CSRF protection), custom session name `ZAHARA_SESSION` |
+| **Compliance audit** | Both server-side timeout and client-side expiry are logged to the audit trail with action `session.timeout` |
+| **Reliable logout** | Uses `navigator.sendBeacon()` for best-effort server-side session destruction when the tab/browser is closed |
+
+**Session Flow:**
+```
+Login → session_regenerate_id() → last_activity = now()
+    │
+    ├── User active (click/scroll/key) → last_activity updated on each request
+    │
+    ├── No activity for 4.5 min → warning modal shown (30s countdown)
+    │       │
+    │       └── User clicks "Continue" → timer resets
+    │
+    └── No activity for 5 min → session destroyed → redirected to login
+```
+
+**Server-side enforcement** (`includes/auth.php`):
+```php
+// Session cookie expires on browser close
+session_set_cookie_params(['lifetime' => 0, 'httponly' => true, 'samesite' => 'Lax']);
+
+// Check inactivity on every request
+define('SESSION_TIMEOUT', 300);  // 5 minutes
+
+function checkSessionTimeout(): void {
+    if (isset($_SESSION['last_activity'])) {
+        $inactive = time() - $_SESSION['last_activity'];
+        if ($inactive > SESSION_TIMEOUT) {
+            logAudit($userId, 'session.timeout', ...);
+            session_destroy();
+            header('Location: /public/login.php');
+            exit;
+        }
+    }
+    $_SESSION['last_activity'] = time();
+}
+```
+
+**Client-side enforcement** (`assets/js/main.js`):
+```js
+const SESSION_TIMEOUT_MS = 5 * 60 * 1000;  // 5 minutes
+const WARNING_BEFORE_MS = 30 * 1000;       // 30s warning
+
+// Activity listeners: click, keydown, mousemove, scroll, touchstart
+// → resets idle timer on any user activity
+// → warning modal at 4:30
+// → auto-redirect to logout.php?expired=1 at 5:00
+```
 
 ---
 
