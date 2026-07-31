@@ -1,11 +1,10 @@
 <?php
 
 /**
- * ADMIN LOGIN
+ * ADMIN LOGIN - Zahara Co-Working Space
  */
 require_once __DIR__ . '/../includes/auth.php';
 
-// Redirect if already admin
 if (isAdmin()) {
     header('Location: /work_folder/realRealestate/admin/index.php');
     exit;
@@ -14,7 +13,6 @@ if (isAdmin()) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
-
     $result = loginUser($email, $password);
     if ($result['success']) {
         if (isAdmin()) {
@@ -38,80 +36,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - FlexiSpace</title>
+    <title>Admin Login - Zahara Co-Working Space</title>
     <link rel="stylesheet" href="/work_folder/realRealestate/assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
-        body {
-            background: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
+    body {
+        background: var(--primary-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
 
-        .admin-login-card {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: var(--shadow-lg);
-        }
+    .admin-login-card {
+        background: white;
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: var(--shadow-lg);
+    }
 
-        .admin-login-card h1 {
-            text-align: center;
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
+    .admin-login-card h1 {
+        text-align: center;
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+    }
 
-        .admin-login-card p {
-            text-align: center;
-            color: var(--text-mid);
-            margin-bottom: 24px;
-            font-size: 0.9rem;
-        }
+    .admin-login-card p {
+        text-align: center;
+        color: var(--text-mid);
+        margin-bottom: 24px;
+        font-size: 0.9rem;
+    }
 
-        .admin-login-card .logo {
-            justify-content: center;
-            margin-bottom: 16px;
-        }
+    .admin-login-card .logo {
+        justify-content: center;
+        margin-bottom: 16px;
+    }
     </style>
 </head>
 
 <body>
     <div class="admin-login-card">
-        <div class="logo">
-            <span class="logo-icon">&#9670;</span>
-            <span class="logo-text">FlexiSpace Admin</span>
-        </div>
+        <div class="logo"><span class="logo-icon">&#9670;</span><span class="logo-text">Zahara Admin</span></div>
         <h1>Admin Sign In</h1>
         <p>Enter your admin credentials</p>
-
-        <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-error">
-                <span class="alert-icon">&#10060;</span>
-                <p><?= htmlspecialchars($_SESSION['error']) ?></p>
-                <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
-            </div>
-        <?php unset($_SESSION['error']);
-        endif; ?>
-
+        <?php if (isset($_SESSION['error'])): ?><div class="alert alert-error"><span class="alert-icon">&#10060;</span>
+            <p><?= htmlspecialchars($_SESSION['error']) ?></p><button class="alert-close"
+                onclick="this.parentElement.remove()">&times;</button>
+        </div><?php unset($_SESSION['error']);
+                endif; ?>
         <form method="POST" action="">
-            <div class="form-group">
-                <label for="email">Admin Email</label>
-                <input type="email" id="email" name="email" placeholder="admin@flexispace.co.ke" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
+            <div class="form-group"><label for="email">Admin Email</label><input type="email" id="email" name="email"
+                    placeholder="admin@zaharacowork.com" required></div>
+            <div class="form-group"><label for="password">Password</label><input type="password" id="password"
+                    name="password" placeholder="Enter your password" required></div>
             <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Sign In</button>
         </form>
-        <div style="text-align: center; margin-top: 16px;">
-            <a href="/work_folder/realRealestate/index.php" style="font-size: 0.85rem;">&larr; Back to Website</a>
-        </div>
+        <div style="text-align: center; margin-top: 16px;"><a href="/work_folder/realRealestate/index.php"
+                style="font-size: 0.85rem;">&larr; Back to Website</a></div>
 </body>
 
 </html>

@@ -1,80 +1,21 @@
 <?php
-
-/**
- * ADMIN DASHBOARD
- * Policy-as-Code compliance monitoring & management
- */
 require_once __DIR__ . '/../includes/auth.php';
 requireAdmin();
-
 $db = getDB();
 
-// Dashboard stats
-$stats = $db->query("
-    SELECT 
-        (SELECT COUNT(*) FROM office_spaces) as total_spaces,
-        (SELECT COUNT(*) FROM office_spaces WHERE status = 'available') as available_spaces,
-        (SELECT COUNT(*) FROM office_spaces WHERE status = 'occupied') as occupied_spaces,
-        (SELECT COUNT(*) FROM users WHERE role_id = 2 AND status = 'active') as active_customers,
-        (SELECT COUNT(*) FROM users WHERE status = 'pending') as pending_users,
-        (SELECT COUNT(*) FROM visit_requests WHERE status = 'pending') as pending_visits,
-        (SELECT COUNT(*) FROM leases WHERE status = 'active') as active_leases,
-        (SELECT COUNT(*) FROM leases WHERE status IN ('expiring','deposit_pending')) as attention_leases,
-        (SELECT COUNT(*) FROM payments WHERE status = 'overdue') as overdue_payments,
-        (SELECT COUNT(*) FROM payments WHERE status = 'paid') as total_paid,
-        (SELECT COUNT(*) FROM testimonials WHERE status = 'pending') as pending_testimonials,
-        (SELECT COALESCE(SUM(amount), 0) FROM payments WHERE status = 'paid') as total_revenue
-")->fetch();
+$stats = $db->query("SELECT (SELECT COUNT(*) FROM office_spaces) as total_spaces, (SELECT COUNT(*) FROM office_spaces WHERE status = 'available') as available_spaces, (SELECT COUNT(*) FROM office_spaces WHERE status = 'occupied') as occupied_spaces, (SELECT COUNT(*) FROM users WHERE role_id = 2 AND status = 'active') as active_customers, (SELECT COUNT(*) FROM users WHERE status = 'pending') as pending_users, (SELECT COUNT(*) FROM visit_requests WHERE status = 'pending') as pending_visits, (SELECT COUNT(*) FROM leases WHERE status = 'active') as active_leases, (SELECT COUNT(*) FROM leases WHERE status IN ('expiring','deposit_pending')) as attention_leases, (SELECT COUNT(*) FROM payments WHERE status = 'overdue') as overdue_payments, (SELECT COUNT(*) FROM payments WHERE status = 'paid') as total_paid, (SELECT COUNT(*) FROM testimonials WHERE status = 'pending') as pending_testimonials, (SELECT COALESCE(SUM(amount), 0) FROM payments WHERE status = 'paid') as total_revenue")->fetch();
 
-$pageTitle = 'Admin Dashboard - FlexiSpace';
+$pageTitle = 'Admin Dashboard - Zahara Co-Working Space';
 require_once __DIR__ . '/../includes/header.php';
 ?>
-
 <div class="admin-layout">
-    <aside class="admin-sidebar">
-        <h3>Main</h3>
-        <nav class="admin-nav">
-            <a href="/work_folder/realRealestate/admin/index.php" class="active"><span class="nav-icon">&#9679;</span>
-                Dashboard</a>
-            <a href="/work_folder/realRealestate/admin/spaces/index.php"><span class="nav-icon">&#127970;</span>
-                Spaces</a>
-            <a href="/work_folder/realRealestate/admin/visit-requests/index.php"><span class="nav-icon">&#128197;</span>
-                Visit Requests</a>
-        </nav>
-        <h3>Management</h3>
-        <nav class="admin-nav">
-            <a href="/work_folder/realRealestate/admin/customers/index.php"><span class="nav-icon">&#128101;</span>
-                Customers</a>
-            <a href="/work_folder/realRealestate/admin/leases/index.php"><span class="nav-icon">&#128196;</span>
-                Leases</a>
-            <a href="/work_folder/realRealestate/admin/payments/index.php"><span class="nav-icon">&#128176;</span>
-                Payments</a>
-        </nav>
-        <h3>Content</h3>
-        <nav class="admin-nav">
-            <a href="/work_folder/realRealestate/admin/testimonials/index.php"><span class="nav-icon">&#11088;</span>
-                Testimonials</a>
-            <a href="/work_folder/realRealestate/admin/users/index.php"><span class="nav-icon">&#128272;</span>
-                Users</a>
-        </nav>
-        <h3>System</h3>
-        <nav class="admin-nav">
-            <a href="/work_folder/realRealestate/admin/policies.php"><span class="nav-icon">&#9878;</span> Policy
-                Engine</a>
-            <a href="/work_folder/realRealestate/admin/audit.php"><span class="nav-icon">&#128214;</span> Audit Log</a>
-            <a href="/work_folder/realRealestate/index.php"><span class="nav-icon">&#127968;</span> View Site</a>
-        </nav>
-    </aside>
-
+    <aside class="admin-sidebar"><?php require __DIR__ . '/sidebar.php'; ?></aside>
     <main class="admin-main">
         <div class="admin-header">
             <h1>Dashboard</h1>
-            <div>
-                <span style="color: var(--text-light); font-size: 0.9rem;"><?= date('l, F j, Y') ?></span>
-                <a href="/work_folder/realRealestate/public/logout.php" class="btn btn-ghost btn-sm">Logout</a>
-            </div>
+            <div><span style="color: var(--text-light); font-size: 0.9rem;"><?= date('l, F j, Y') ?></span><a
+                    href="/work_folder/realRealestate/public/logout.php" class="btn btn-ghost btn-sm">Logout</a></div>
 
-            <!-- Stats Grid -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Total Spaces</h3>
@@ -114,25 +55,14 @@ require_once __DIR__ . '/../includes/header.php';
                                                 <div class="stat-label">Policy Engine Active</div>
                                             </div>
 
-                                            <!-- Recent Items -->
                                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                                                <!-- Recent Visit Requests -->
                                                 <div
                                                     style="background: var(--bg-white); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
                                                     <h3 style="margin-bottom: 16px;">Recent Visit Requests</h3>
-                                                    <?php
-                                                    $recentVisits = $db->query("
-                    SELECT vr.*, u.full_name, os.name as space_name 
-                    FROM visit_requests vr 
-                    JOIN users u ON vr.user_id = u.id 
-                    JOIN office_spaces os ON vr.space_id = os.id 
-                    ORDER BY vr.created_at DESC LIMIT 5
-                ")->fetchAll();
-                                                    ?>
-                                                    <?php if (empty($recentVisits)): ?>
-                                                        <p style="color: var(--text-light);">No visit requests yet.</p>
-                                                    <?php else: ?>
-                                                        <div class="table-responsive">
+                                                    <?php $recentVisits = $db->query("SELECT vr.*, u.full_name, os.name as space_name FROM visit_requests vr JOIN users u ON vr.user_id = u.id JOIN office_spaces os ON vr.space_id = os.id ORDER BY vr.created_at DESC LIMIT 5")->fetchAll(); ?>
+                                                    <?php if (empty($recentVisits)): ?><p
+                                                            style="color: var(--text-light);">No visit requests yet.</p>
+                                                    <?php else: ?><div class="table-responsive">
                                                             <table>
                                                                 <thead>
                                                                     <tr>
@@ -142,9 +72,7 @@ require_once __DIR__ . '/../includes/header.php';
                                                                         <th>Status</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody>
-                                                                    <?php foreach ($recentVisits as $v): ?>
-                                                                        <tr>
+                                                                <tbody><?php foreach ($recentVisits as $v): ?><tr>
                                                                             <td><?= htmlspecialchars($v['full_name']) ?></td>
                                                                             <td><?= htmlspecialchars($v['space_name']) ?></td>
                                                                             <td><?= date('d M', strtotime($v['preferred_date'])) ?>
@@ -152,35 +80,21 @@ require_once __DIR__ . '/../includes/header.php';
                                                                             <td><span
                                                                                     class="status-badge status-<?= $v['status'] ?>"><?= ucfirst($v['status']) ?></span>
                                                                             </td>
-                                                                        </tr>
-                                                                    <?php endforeach; ?>
-                                                                </tbody>
+                                                                        </tr><?php endforeach; ?></tbody>
                                                             </table>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                        </div><?php endif; ?>
                                                     <a href="/work_folder/realRealestate/admin/visit-requests/index.php"
                                                         class="btn btn-ghost btn-sm" style="margin-top: 12px;">View All
                                                         &rarr;</a>
                                                 </div>
 
-                                                <!-- Recent Payments -->
                                                 <div
                                                     style="background: var(--bg-white); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
                                                     <h3 style="margin-bottom: 16px;">Recent Payments</h3>
-                                                    <?php
-                                                    $recentPayments = $db->query("
-                    SELECT p.*, u.full_name, os.name as space_name 
-                    FROM payments p 
-                    JOIN users u ON p.user_id = u.id 
-                    JOIN leases l ON p.lease_id = l.id 
-                    JOIN office_spaces os ON l.space_id = os.id 
-                    ORDER BY p.created_at DESC LIMIT 5
-                ")->fetchAll();
-                                                    ?>
-                                                    <?php if (empty($recentPayments)): ?>
-                                                        <p style="color: var(--text-light);">No payments recorded yet.</p>
-                                                    <?php else: ?>
-                                                        <div class="table-responsive">
+                                                    <?php $recentPayments = $db->query("SELECT p.*, u.full_name, os.name as space_name FROM payments p JOIN users u ON p.user_id = u.id JOIN leases l ON p.lease_id = l.id JOIN office_spaces os ON l.space_id = os.id ORDER BY p.created_at DESC LIMIT 5")->fetchAll(); ?>
+                                                    <?php if (empty($recentPayments)): ?><p
+                                                            style="color: var(--text-light);">No payments recorded yet.</p>
+                                                    <?php else: ?><div class="table-responsive">
                                                             <table>
                                                                 <thead>
                                                                     <tr>
@@ -190,26 +104,20 @@ require_once __DIR__ . '/../includes/header.php';
                                                                         <th>Status</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody>
-                                                                    <?php foreach ($recentPayments as $p): ?>
-                                                                        <tr>
+                                                                <tbody><?php foreach ($recentPayments as $p): ?><tr>
                                                                             <td><?= htmlspecialchars($p['full_name']) ?></td>
                                                                             <td><?= htmlspecialchars($p['space_name']) ?></td>
                                                                             <td>KES <?= number_format($p['amount']) ?></td>
                                                                             <td><span
                                                                                     class="status-badge status-<?= $p['status'] ?>"><?= ucfirst($p['status']) ?></span>
                                                                             </td>
-                                                                        </tr>
-                                                                    <?php endforeach; ?>
-                                                                </tbody>
+                                                                        </tr><?php endforeach; ?></tbody>
                                                             </table>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                        </div><?php endif; ?>
                                                     <a href="/work_folder/realRealestate/admin/payments/index.php"
                                                         class="btn btn-ghost btn-sm" style="margin-top: 12px;">View All
                                                         &rarr;</a>
                                                 </div>
     </main>
 </div>
-
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

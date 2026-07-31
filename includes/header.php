@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SITE HEADER - Policy-as-Code themed
+ * SITE HEADER - Zahara Co-Working Space
  */
 require_once __DIR__ . '/auth.php';
 $currentUser = getCurrentUser();
@@ -13,9 +13,9 @@ $isAdmin = isAdmin();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $pageTitle ?? 'FlexiSpace - Office Space Rentals | Westlands, Nairobi' ?></title>
+    <title><?= $pageTitle ?? 'Zahara Co-Working Space - Premium Workspaces in Westlands, Nairobi' ?></title>
     <meta name="description"
-        content="Premium office spaces for rent in Westlands, Nairobi. Executive suites, coworking spaces, meeting rooms, and virtual offices.">
+        content="Premium co-working spaces for rent in Westlands, Nairobi. Private offices, open workspaces, boardrooms, and virtual office packages at Krishna Centre.">
     <link rel="stylesheet" href="/work_folder/realRealestate/assets/css/style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,8 +28,8 @@ $isAdmin = isAdmin();
     <header class="site-header">
         <div class="container">
             <a href="/work_folder/realRealestate/index.php" class="logo">
-                <span class="logo-icon">&#9670;</span>
-                <span class="logo-text">FlexiSpace</span>
+                <span class="logo-icon" style="color: #1565C0;">Z</span>
+                <span class="logo-text">Zahara <span style="color: #1565C0; font-weight: 300;">Co-Working</span>
             </a>
             <nav class="main-nav">
                 <ul>
