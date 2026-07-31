@@ -22,102 +22,106 @@ require_once __DIR__ . '/../includes/header.php';
                     <div class="stat-value"><?= $stats['total_spaces'] ?></div>
                     <div class="stat-label"><?= $stats['available_spaces'] ?> available &middot;
                         <?= $stats['occupied_spaces'] ?> occupied</div>
-                    <div class="stat-card">
-                        <h3>Active Leases</h3>
-                        <div class="stat-value"><?= $stats['active_leases'] ?></div>
-                        <div class="stat-label"><?= $stats['attention_leases'] ?> need attention</div>
-                        <div class="stat-card">
-                            <h3>Active Customers</h3>
-                            <div class="stat-value"><?= $stats['active_customers'] ?></div>
-                            <div class="stat-label"><?= $stats['pending_users'] ?> pending approval</div>
-                            <div class="stat-card">
-                                <h3>Total Revenue</h3>
-                                <div class="stat-value">KES <?= number_format($stats['total_revenue']) ?></div>
-                                <div class="stat-label">From <?= $stats['total_paid'] ?> payments</div>
-                                <div class="stat-card">
-                                    <h3>Pending Visits</h3>
-                                    <div class="stat-value" style="color: var(--warning);">
-                                        <?= $stats['pending_visits'] ?></div>
-                                    <div class="stat-label">Requires review</div>
-                                    <div class="stat-card">
-                                        <h3>Overdue Payments</h3>
-                                        <div class="stat-value" style="color: var(--danger);">
-                                            <?= $stats['overdue_payments'] ?></div>
-                                        <div class="stat-label">Compliance alert</div>
-                                        <div class="stat-card">
-                                            <h3>Pending Reviews</h3>
-                                            <div class="stat-value" style="color: var(--info);">
-                                                <?= $stats['pending_testimonials'] ?></div>
-                                            <div class="stat-label">Awaiting moderation</div>
-                                            <div class="stat-card">
-                                                <h3>Compliance Status</h3>
-                                                <div class="stat-value" style="color: var(--success);">&#10003;</div>
-                                                <div class="stat-label">Policy Engine Active</div>
-                                            </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Leases</h3>
+                    <div class="stat-value"><?= $stats['active_leases'] ?></div>
+                    <div class="stat-label"><?= $stats['attention_leases'] ?> need attention</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Customers</h3>
+                    <div class="stat-value"><?= $stats['active_customers'] ?></div>
+                    <div class="stat-label"><?= $stats['pending_users'] ?> pending approval</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Revenue</h3>
+                    <div class="stat-value">KES <?= number_format($stats['total_revenue']) ?></div>
+                    <div class="stat-label">From <?= $stats['total_paid'] ?> payments</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Visits</h3>
+                    <div class="stat-value" style="color: var(--warning);"><?= $stats['pending_visits'] ?></div>
+                    <div class="stat-label">Requires review</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Overdue Payments</h3>
+                    <div class="stat-value" style="color: var(--danger);"><?= $stats['overdue_payments'] ?></div>
+                    <div class="stat-label">Compliance alert</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Reviews</h3>
+                    <div class="stat-value" style="color: var(--info);"><?= $stats['pending_testimonials'] ?></div>
+                    <div class="stat-label">Awaiting moderation</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Compliance Status</h3>
+                    <div class="stat-value" style="color: var(--success);">&#10003;</div>
+                    <div class="stat-label">Policy Engine Active</div>
+                </div>
 
-                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                                                <div
-                                                    style="background: var(--bg-white); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
-                                                    <h3 style="margin-bottom: 16px;">Recent Visit Requests</h3>
-                                                    <?php $recentVisits = $db->query("SELECT vr.*, u.full_name, os.name as space_name FROM visit_requests vr JOIN users u ON vr.user_id = u.id JOIN office_spaces os ON vr.space_id = os.id ORDER BY vr.created_at DESC LIMIT 5")->fetchAll(); ?>
-                                                    <?php if (empty($recentVisits)): ?><p
-                                                            style="color: var(--text-light);">No visit requests yet.</p>
-                                                    <?php else: ?><div class="table-responsive">
-                                                            <table>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Client</th>
-                                                                        <th>Space</th>
-                                                                        <th>Date</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody><?php foreach ($recentVisits as $v): ?><tr>
-                                                                            <td><?= htmlspecialchars($v['full_name']) ?></td>
-                                                                            <td><?= htmlspecialchars($v['space_name']) ?></td>
-                                                                            <td><?= date('d M', strtotime($v['preferred_date'])) ?>
-                                                                            </td>
-                                                                            <td><span
-                                                                                    class="status-badge status-<?= $v['status'] ?>"><?= ucfirst($v['status']) ?></span>
-                                                                            </td>
-                                                                        </tr><?php endforeach; ?></tbody>
-                                                            </table>
-                                                        </div><?php endif; ?>
-                                                    <a href="/work_folder/realRealestate/admin/visit-requests/index.php"
-                                                        class="btn btn-ghost btn-sm" style="margin-top: 12px;">View All
-                                                        &rarr;</a>
-                                                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div
+                        style="background: var(--bg-white); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
+                        <h3 style="margin-bottom: 16px;">Recent Visit Requests</h3>
+                        <?php $recentVisits = $db->query("SELECT vr.*, u.full_name, os.name as space_name FROM visit_requests vr JOIN users u ON vr.user_id = u.id JOIN office_spaces os ON vr.space_id = os.id ORDER BY vr.created_at DESC LIMIT 5")->fetchAll(); ?>
+                        <?php if (empty($recentVisits)): ?><p style="color: var(--text-light);">No visit requests yet.
+                        </p>
+                        <?php else: ?><div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Client</th>
+                                        <th>Space</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody><?php foreach ($recentVisits as $v): ?><tr>
+                                        <td><?= htmlspecialchars($v['full_name']) ?></td>
+                                        <td><?= htmlspecialchars($v['space_name']) ?></td>
+                                        <td><?= date('d M', strtotime($v['preferred_date'])) ?>
+                                        </td>
+                                        <td><span
+                                                class="status-badge status-<?= $v['status'] ?>"><?= ucfirst($v['status']) ?></span>
+                                        </td>
+                                    </tr><?php endforeach; ?></tbody>
+                            </table>
+                        </div><?php endif; ?>
+                        <a href="/work_folder/realRealestate/admin/visit-requests/index.php"
+                            class="btn btn-ghost btn-sm" style="margin-top: 12px;">View All
+                            &rarr;</a>
+                    </div>
 
-                                                <div
-                                                    style="background: var(--bg-white); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
-                                                    <h3 style="margin-bottom: 16px;">Recent Payments</h3>
-                                                    <?php $recentPayments = $db->query("SELECT p.*, u.full_name, os.name as space_name FROM payments p JOIN users u ON p.user_id = u.id JOIN leases l ON p.lease_id = l.id JOIN office_spaces os ON l.space_id = os.id ORDER BY p.created_at DESC LIMIT 5")->fetchAll(); ?>
-                                                    <?php if (empty($recentPayments)): ?><p
-                                                            style="color: var(--text-light);">No payments recorded yet.</p>
-                                                    <?php else: ?><div class="table-responsive">
-                                                            <table>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Client</th>
-                                                                        <th>Space</th>
-                                                                        <th>Amount</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody><?php foreach ($recentPayments as $p): ?><tr>
-                                                                            <td><?= htmlspecialchars($p['full_name']) ?></td>
-                                                                            <td><?= htmlspecialchars($p['space_name']) ?></td>
-                                                                            <td>KES <?= number_format($p['amount']) ?></td>
-                                                                            <td><span
-                                                                                    class="status-badge status-<?= $p['status'] ?>"><?= ucfirst($p['status']) ?></span>
-                                                                            </td>
-                                                                        </tr><?php endforeach; ?></tbody>
-                                                            </table>
-                                                        </div><?php endif; ?>
-                                                    <a href="/work_folder/realRealestate/admin/payments/index.php"
-                                                        class="btn btn-ghost btn-sm" style="margin-top: 12px;">View All
-                                                        &rarr;</a>
-                                                </div>
+                    <div
+                        style="background: var(--bg-white); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border);">
+                        <h3 style="margin-bottom: 16px;">Recent Payments</h3>
+                        <?php $recentPayments = $db->query("SELECT p.*, u.full_name, os.name as space_name FROM payments p JOIN users u ON p.user_id = u.id JOIN leases l ON p.lease_id = l.id JOIN office_spaces os ON l.space_id = os.id ORDER BY p.created_at DESC LIMIT 5")->fetchAll(); ?>
+                        <?php if (empty($recentPayments)): ?><p style="color: var(--text-light);">No payments recorded
+                            yet.</p>
+                        <?php else: ?><div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Client</th>
+                                        <th>Space</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody><?php foreach ($recentPayments as $p): ?><tr>
+                                        <td><?= htmlspecialchars($p['full_name']) ?></td>
+                                        <td><?= htmlspecialchars($p['space_name']) ?></td>
+                                        <td>KES <?= number_format($p['amount']) ?></td>
+                                        <td><span
+                                                class="status-badge status-<?= $p['status'] ?>"><?= ucfirst($p['status']) ?></span>
+                                        </td>
+                                    </tr><?php endforeach; ?></tbody>
+                            </table>
+                        </div><?php endif; ?>
+                        <a href="/work_folder/realRealestate/admin/payments/index.php" class="btn btn-ghost btn-sm"
+                            style="margin-top: 12px;">View All
+                            &rarr;</a>
+                    </div>
     </main>
 </div>
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

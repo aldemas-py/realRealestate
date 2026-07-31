@@ -1,6 +1,23 @@
 <?php
 $pageTitle = 'Contact Us - Zahara Co-Working Space';
 require_once __DIR__ . '/../includes/header.php';
+$db = getDB();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $subject = trim($_POST['subject'] ?? '');
+    $message = trim($_POST['message'] ?? '');
+    if (!empty($name) && !empty($email) && !empty($subject) && !empty($message)) {
+        $stmt = $db->prepare("INSERT INTO notifications (user_id, title, message, type, policy_trigger) VALUES (1, ?, ?, 'info', 'contact_form')");
+        $stmt->execute(["Contact: $subject - $name", "From: $email\n\n$message"]);
+        $_SESSION['success'] = 'Thank you for your message! We will get back to you shortly.';
+    } else {
+        $_SESSION['error'] = 'Please fill in all fields.';
+    }
+    header('Location: /work_folder/realRealestate/public/contact.php');
+    exit;
+}
 ?>
 <section class="section" style="padding: 40px 0;">
     <div class="container">
@@ -11,6 +28,18 @@ require_once __DIR__ . '/../includes/header.php';
                 <div
                     style="background: var(--bg-white); border-radius: var(--radius-md); padding: 30px; border: 1px solid var(--border);">
                     <h3 style="margin-bottom: 16px;">Send us a Message</h3>
+                    <?php if (isset($_SESSION['success'])): ?><div class="alert alert-success"><span
+                            class="alert-icon">&#10003;</span>
+                        <p><?= $_SESSION['success'] ?></p><button class="alert-close"
+                            onclick="this.parentElement.remove()">&times;</button>
+                    </div><?php unset($_SESSION['success']);
+                            endif; ?>
+                    <?php if (isset($_SESSION['error'])): ?><div class="alert alert-error"><span
+                            class="alert-icon">&#10060;</span>
+                        <p><?= $_SESSION['error'] ?></p><button class="alert-close"
+                            onclick="this.parentElement.remove()">&times;</button>
+                    </div><?php unset($_SESSION['error']);
+                            endif; ?>
                     <form method="POST" action="">
                         <div class="form-group"><label for="name">Your Name</label><input type="text" id="name"
                                 name="name" required></div>
@@ -51,15 +80,15 @@ require_once __DIR__ . '/../includes/header.php';
                     </div>
 </section>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof initSingleSpaceMap === 'function') {
-            initSingleSpaceMap('contactMap', {
-                lat: -1.2628,
-                lng: 36.8119,
-                name: 'Zahara Co-Working Space',
-                address: 'Krishna Centre, 2nd Floor, Westlands, Nairobi'
-            });
-        }
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof initSingleSpaceMap === 'function') {
+        initSingleSpaceMap('contactMap', {
+            lat: -1.2628,
+            lng: 36.8119,
+            name: 'Zahara Co-Working Space',
+            address: 'Krishna Centre, 2nd Floor, Westlands, Nairobi'
+        });
+    }
+});
 </script>
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
