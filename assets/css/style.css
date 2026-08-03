@@ -2,7 +2,7 @@
     --primary: #1565C0;
     --primary-dark: #0D47A1;
     --primary-light: #E3F2FD;
-    --accent: #1E88E5;
+    --accent: #FF9800;
     --success: #2E7D32;
     --warning: #E65100;
     --danger: #C62828;
@@ -160,7 +160,12 @@ h6 {
 
 .main-nav a:hover {
     color: var(--primary);
-    border-bottom-color: var(--primary);
+    border-bottom-color: var(--accent);
+}
+
+.main-nav a.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
 }
 
 .header-actions {
@@ -264,8 +269,8 @@ h6 {
 }
 
 .btn-primary:hover {
-    background: var(--primary-dark);
-    border-color: var(--primary-dark);
+    background: var(--accent);
+    border-color: var(--accent);
     color: white;
 }
 
@@ -363,7 +368,7 @@ h6 {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.15);
 }
 
 .form-group textarea {
@@ -616,7 +621,7 @@ h6 {
 .space-price {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--accent);
 }
 
 .space-price small {
