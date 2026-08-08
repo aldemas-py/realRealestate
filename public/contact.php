@@ -23,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <h1 class="section-title">Contact Us</h1>
         <p class="section-subtitle">Get in touch with us. Visit us at Krishna Centre, 2nd Floor, Westlands.</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 900px; margin: 0 auto;">
-            <div>
+<div class="contact-layout">
+            <div class="contact-form-col">
                 <div
                     style="background: var(--bg-white); border-radius: var(--radius-md); padding: 30px; border: 1px solid var(--border);">
                     <h3 style="margin-bottom: 16px;">Send us a Message</h3>
@@ -76,8 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <p style="color: var(--text-mid);">Mon - Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 3:00 PM
                             </p>
                         </div>
-                        <div class="map-container" id="contactMap" style="height: 250px; margin-top: 24px;"></div>
+<div class="map-container" id="contactMap" style="height: 250px; margin-top: 24px;"></div>
                     </div>
+                </div>
+            </div>
+        </div>
 </section>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
