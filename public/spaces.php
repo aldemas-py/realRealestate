@@ -58,7 +58,7 @@ $spaces = $spaces->fetchAll();
             </form>
         </div>
 
-        <?php if (empty($spaces)): ?>
+        <?php if (empty($spaces) && $typeFilter !== 'virtual_office'): ?>
             <div style="text-align: center; padding: 60px; color: var(--text-light);">
                 <p style="font-size: 1.1rem;">No spaces match your criteria.</p><a
                     href="/work_folder/realRealestate/public/spaces.php" class="btn btn-primary"
@@ -66,6 +66,31 @@ $spaces = $spaces->fetchAll();
             </div>
         <?php else: ?>
             <div class="spaces-grid">
+                <?php if ($typeFilter === '' || $typeFilter === 'virtual_office'): ?>
+                <!-- Virtual Office promotional space card -->
+                <div class="space-card" style="border: 2px solid var(--primary);">
+                    <a href="/work_folder/realRealestate/public/virtual-office.php" class="space-card-image"
+                        style="display: block;">
+                        <img src="/work_folder/realRealestate/images/WhatsApp Image 2026-08-07 at 05.13.00.jpeg"
+                            alt="Zahara Virtual Office Solutions" loading="lazy">
+                        <span class="space-card-badge badge-available">Available</span>
+                        <span class="space-card-badge badge-featured">Virtual Office</span>
+                    </a>
+                    <div class="space-card-body">
+                        <h3><a href="/work_folder/realRealestate/public/virtual-office.php">Virtual Office Solutions</a>
+                        </h3>
+                        <div class="space-meta"><span>&#128205; Krishna Centre, Westlands</span><span>&#128101; All
+                                businesses</span><span>&#128196; Virtual Office</span></div>
+                        <p class="space-description">Establish your business presence with a prime Westlands address,
+                            mail handling, meeting room access, and a dedicated virtual receptionist. From KSh 3,000/month.</p>
+                        <div class="space-card-footer">
+                            <div class="space-price">From KSh 3,000 <small>/month</small></div>
+                            <a href="/work_folder/realRealestate/public/virtual-office.php"
+                                class="btn btn-primary btn-sm">View Packages</a>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
                 <?php foreach ($spaces as $space): ?>
                     <div class="space-card">
                         <div class="space-card-image">

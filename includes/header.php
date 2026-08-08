@@ -30,9 +30,10 @@ $isAdmin = isAdmin();
             <a href="/work_folder/realRealestate/index.php" class="logo">
                 <span class="logo-icon" style="color: #1565C0;">Z</span>
                 <span class="logo-text">Zahara <span style="color: #1565C0; font-weight: 300;">Co-Working</span>
-            </a>
+</a>
             <nav class="main-nav">
                 <ul>
+                    <li><a href="/work_folder/realRealestate/public/virtual-office.php">Virtual Office</a></li>
                     <li><a href="/work_folder/realRealestate/public/spaces.php">Spaces</a></li>
                     <li><a href="/work_folder/realRealestate/public/testimonials.php">Testimonials</a></li>
                     <li><a href="/work_folder/realRealestate/public/about.php">About</a></li>
