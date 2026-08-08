@@ -2,26 +2,29 @@
     --primary: #1565C0;
     --primary-dark: #0D47A1;
     --primary-light: #E3F2FD;
+    --primary-soft: #EAF2FB;
     --accent: #FF9800;
+    --accent-dark: #E65100;
     --success: #2E7D32;
     --warning: #E65100;
     --danger: #C62828;
     --info: #0277BD;
-    --bg-white: #FFFFFF;
-    --bg-light: #F5F5F5;
-    --bg-dark: #212121;
-    --text-dark: #212121;
-    --text-mid: #616161;
-    --text-light: #9E9E9E;
-    --border: #E0E0E0;
+    --bg-white: #FDFDFE;
+    --bg-light: #F2F3F4;
+    --bg-soft: #F7F8FA;
+    --bg-dark: #1B2A41;
+    --text-dark: #1F2937;
+    --text-mid: #4B5563;
+    --text-light: #6B7280;
+    --border: #E3E7EB;
     --max-width: 1200px;
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-    --transition: all 0.2s ease;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 14px rgba(13, 71, 161, 0.08);
+    --shadow-lg: 0 10px 30px rgba(13, 71, 161, 0.12);
+    --transition: all 0.25s ease;
 }
 
 *,
@@ -530,6 +533,7 @@ h6 {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
+    align-items: flex-start;
 }
 
 .spaces-grid .space-card {

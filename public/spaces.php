@@ -58,7 +58,7 @@ $spaces = $spaces->fetchAll();
             </form>
         </div>
 
-        <?php if (empty($spaces) && $typeFilter !== 'virtual_office'): ?>
+<?php if (empty($spaces) && $typeFilter !== 'virtual_office'): ?>
             <div style="text-align: center; padding: 60px; color: var(--text-light);">
                 <p style="font-size: 1.1rem;">No spaces match your criteria.</p><a
                     href="/work_folder/realRealestate/public/spaces.php" class="btn btn-primary"
@@ -82,7 +82,8 @@ $spaces = $spaces->fetchAll();
                         <div class="space-meta"><span>&#128205; Krishna Centre, Westlands</span><span>&#128101; All
                                 businesses</span><span>&#128196; Virtual Office</span></div>
                         <p class="space-description">Establish your business presence with a prime Westlands address,
-                            mail handling, meeting room access, and a dedicated virtual receptionist. From KSh 3,000/month.</p>
+                            mail handling, meeting room access, and a dedicated virtual receptionist. From KSh 3,000/month.
+                        </p>
                         <div class="space-card-footer">
                             <div class="space-price">From KSh 3,000 <small>/month</small></div>
                             <a href="/work_folder/realRealestate/public/virtual-office.php"
@@ -92,34 +93,33 @@ $spaces = $spaces->fetchAll();
                 </div>
                 <?php endif; ?>
                 <?php foreach ($spaces as $space): ?>
-                    <div class="space-card">
-                        <div class="space-card-image">
-                            <img src="<?= htmlspecialchars($space['primary_image'] ?? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400') ?>"
-                                alt="<?= htmlspecialchars($space['name']) ?>" loading="lazy">
-                            <span class="space-card-badge badge-available">Available</span>
-                            <?php if ($space['is_featured']): ?><span
-                                    class="space-card-badge badge-featured">Featured</span><?php endif; ?>
-                        </div>
-                        <div class="space-card-body">
-                            <?php $voLink = $space['space_type'] === 'virtual_office' ? '/work_folder/realRealestate/public/virtual-office.php' : '/work_folder/realRealestate/public/space-detail.php?slug=' . $space['slug']; ?>
-                            <h3><a href="<?= $voLink ?>"><?= htmlspecialchars($space['name']) ?></a>
-                            </h3>
-                            <div class="space-meta"><span>&#128205; <?= htmlspecialchars($space['address_line1']) ?>,
-                                    <?= htmlspecialchars($space['city']) ?></span><span>&#128101; <?= $space['capacity'] ?>
-                                    seats</span><span>&#128196;
-                                    <?= ucwords(str_replace('_', ' ', $space['space_type'])) ?></span></div>
-                            <p class="space-description"><?= htmlspecialchars($space['short_description']) ?></p>
-                            <div class="space-card-footer">
-                                <div class="space-price">KES <?= number_format($space['price_per_month']) ?>
-                                    <small>/month</small>
-                                </div>
-                                <a href="<?= $voLink ?>"
-                                    class="btn btn-primary btn-sm">View Details</a>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
+                <div class="space-card">
+                    <div class="space-card-image">
+                        <img src="<?= htmlspecialchars($space['primary_image'] ?? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400') ?>"
+                            alt="<?= htmlspecialchars($space['name']) ?>" loading="lazy">
+                        <span class="space-card-badge badge-available">Available</span>
+                        <?php if ($space['is_featured']): ?><span
+                                class="space-card-badge badge-featured">Featured</span><?php endif; ?>
                     </div>
-                <?php endif; ?>
+                    <div class="space-card-body">
+                        <?php $voLink = $space['space_type'] === 'virtual_office' ? '/work_folder/realRealestate/public/virtual-office.php' : '/work_folder/realRealestate/public/space-detail.php?slug=' . $space['slug']; ?>
+                        <h3><a href="<?= $voLink ?>"><?= htmlspecialchars($space['name']) ?></a>
+                        </h3>
+                        <div class="space-meta"><span>&#128205; <?= htmlspecialchars($space['address_line1']) ?>,
+                                <?= htmlspecialchars($space['city']) ?></span><span>&#128101; <?= $space['capacity'] ?>
+                                seats</span><span>&#128196;
+                                <?= ucwords(str_replace('_', ' ', $space['space_type'])) ?></span></div>
+                        <p class="space-description"><?= htmlspecialchars($space['short_description']) ?></p>
+                        <div class="space-card-footer">
+                            <div class="space-price">KES <?= number_format($space['price_per_month']) ?>
+                                <small>/month</small>
+                            </div>
+                            <a href="<?= $voLink ?>" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
             </div>
+            <?php endif; ?>
 </section>
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

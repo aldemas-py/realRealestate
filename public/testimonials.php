@@ -37,7 +37,7 @@ $spaces = $db->query("SELECT id, name FROM office_spaces WHERE status = 'availab
                 <p style="font-size: 1.1rem;">No reviews yet. Be the first to share your experience!</p>
             </div>
         <?php else: ?>
-            <div class="testimonials-grid">
+<div class="testimonials-grid">
                 <?php foreach ($testimonials as $t): ?>
                     <div class="testimonial-card">
                         <div class="testimonial-header">
@@ -50,8 +50,9 @@ $spaces = $db->query("SELECT id, name FROM office_spaces WHERE status = 'availab
                             </div>
                             <p class="testimonial-content">"<?= htmlspecialchars($t['content']) ?>"</p>
                         </div>
-                    <?php endforeach; ?>
                     </div>
+                <?php endforeach; ?>
+            </div>
                 <?php endif; ?>
 
                 <?php if (isLoggedIn()): ?>
