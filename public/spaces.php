@@ -101,8 +101,8 @@ $spaces = $spaces->fetchAll();
                                     class="space-card-badge badge-featured">Featured</span><?php endif; ?>
                         </div>
                         <div class="space-card-body">
-                            <h3><a
-                                    href="/work_folder/realRealestate/public/space-detail.php?slug=<?= $space['slug'] ?>"><?= htmlspecialchars($space['name']) ?></a>
+                            <?php $voLink = $space['space_type'] === 'virtual_office' ? '/work_folder/realRealestate/public/virtual-office.php' : '/work_folder/realRealestate/public/space-detail.php?slug=' . $space['slug']; ?>
+                            <h3><a href="<?= $voLink ?>"><?= htmlspecialchars($space['name']) ?></a>
                             </h3>
                             <div class="space-meta"><span>&#128205; <?= htmlspecialchars($space['address_line1']) ?>,
                                     <?= htmlspecialchars($space['city']) ?></span><span>&#128101; <?= $space['capacity'] ?>
@@ -113,7 +113,7 @@ $spaces = $spaces->fetchAll();
                                 <div class="space-price">KES <?= number_format($space['price_per_month']) ?>
                                     <small>/month</small>
                                 </div>
-                                <a href="/work_folder/realRealestate/public/space-detail.php?slug=<?= $space['slug'] ?>"
+                                <a href="<?= $voLink ?>"
                                     class="btn btn-primary btn-sm">View Details</a>
                             </div>
                         </div>

@@ -13,9 +13,11 @@ require_once __DIR__ . '/../includes/header.php';
     <div class="container">
         <div class="vo-hero-grid">
             <div class="vo-hero-content">
+
                 <div class="vo-brand">
-                    <img src="/work_folder/realRealestate/images/WhatsApp Image 2026-08-07 at 05.13.00.jpeg"
-                        alt="Zahara Co-Working Space flyer" class="vo-brand-img" loading="lazy">
+                    <img src="/work_folder/realRealestate/images/logo.png" alt="Zahara Co-Working Space logo"
+                        class="vo-brand-logo" loading="lazy">
+                    <span class="hero-brand-text">Zahara Co-Working Space</span>
                 </div>
                 <h1>Give Your Business a <span>Professional Presence</span></h1>
                 <p class="vo-subtitle">Looking to establish your business without the cost of renting a physical
@@ -34,8 +36,18 @@ require_once __DIR__ . '/../includes/header.php';
                 </div>
             </div>
             <div class="vo-hero-visual">
-                <img src="/work_folder/realRealestate/images/WhatsApp Image 2026-08-07 at 05.13.00.jpeg"
-                    alt="Zahara Co-Working Space promotional flyer" class="vo-flyer" loading="lazy">
+                <div class="vo-hero-card">
+                    <img src="/work_folder/realRealestate/images/logo.png" alt="Zahara Co-Working Space logo"
+                        class="vo-hero-card-logo" loading="lazy">
+                    <h3>Why Go Virtual?</h3>
+                    <p>Build a credible business image with a prime Westlands address — without the cost of a physical
+                        office.</p>
+                    <ul class="offering-list">
+                        <li>&#10003; No rent or setup costs</li>
+                        <li>&#10003; Prime business address</li>
+                        <li>&#10003; Flexible & scalable packages</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

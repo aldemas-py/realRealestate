@@ -21,7 +21,7 @@
                     <a href="mailto:zaharacoworking24@gmail.com">zaharacoworking24@gmail.com</a>
                 </address>
             </div>
-            <div class="footer-col">
+<div class="footer-col">
                 <h4>Our Spaces</h4>
                 <ul>
                     <li><a href="/work_folder/realRealestate/public/spaces.php?type=private_office">Private Office
@@ -29,7 +29,7 @@
                     <li><a href="/work_folder/realRealestate/public/spaces.php?type=open_desk">Open Office Space</a>
                     </li>
                     <li><a href="/work_folder/realRealestate/public/spaces.php?type=meeting_room">Boardroom</a></li>
-                    <li><a href="/work_folder/realRealestate/public/spaces.php?type=virtual_office">Virtual Office</a>
+                    <li><a href="/work_folder/realRealestate/public/spaces.php?type=virtual_office">Physical Spaces</a>
                     </li>
                 </ul>
             </div>
