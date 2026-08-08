@@ -5,15 +5,20 @@
 <footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
-            <div class="footer-col">
-                <h4><span style="color: #1565C0; font-weight: 800;">Z</span> Zahara Co-Working</h4>
-                <p><strong>A Replacement of Traditional Workplace.</strong> Premium co-working spaces in Westlands,
-                    Nairobi. Fully furnished offices with high-speed Wi-Fi and a prime business location.</p>
+<div class="footer-col">
+                <h4>
+                    <img src="/work_folder/realRealestate/images/logo.png" alt="Zahara Co-Working Space logo"
+                        style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle; margin-right: 6px; border-radius: 6px;">
+                    Zahara Co-Working
+                </h4>
+                <p><strong>A Replacement of Traditional Workplace.</strong> Flexible workspace solutions in Westlands,
+                    Nairobi — from premium physical co-working spaces to affordable virtual office packages that give
+                    your business a professional presence.</p>
                 <address>
                     Krishna Centre, 2nd Floor, Westlands<br>
                     Nairobi, Kenya<br>
-                    <a href="tel:+254724161342">0724 161 342</a><br>
-                    <a href="mailto:info@zaharacowork.com">info@zaharacowork.com</a>
+                    <a href="tel:+254724161342">0724 161 342</a> | <a href="tel:+254708854435">0708 854 435</a><br>
+                    <a href="mailto:zaharacoworking24@gmail.com">zaharacoworking24@gmail.com</a>
                 </address>
             </div>
             <div class="footer-col">
@@ -28,13 +33,16 @@
                     </li>
                 </ul>
             </div>
-            <div class="footer-col">
-                <h4>Virtual Packages</h4>
+<div class="footer-col">
+                <h4>Virtual Office</h4>
                 <ul>
-                    <li><a href="/work_folder/realRealestate/public/spaces.php">Business Presence - KSH 3,000</a></li>
-                    <li><a href="/work_folder/realRealestate/public/spaces.php">Standard Virtual - KSH 5,000</a></li>
-                    <li><a href="/work_folder/realRealestate/public/spaces.php">Virtual Office Plus - KSH 10,000</a>
-                    </li>
+                    <li><a href="/work_folder/realRealestate/public/virtual-office.php#vo-pricing">Business Presence -
+                            KSh 3,000</a></li>
+                    <li><a href="/work_folder/realRealestate/public/virtual-office.php#vo-pricing">Standard Virtual -
+                            KSh 5,000</a></li>
+                    <li><a href="/work_folder/realRealestate/public/virtual-office.php#vo-pricing">Virtual Office Plus
+                            - KSh 10,000</a></li>
+                    <li><a href="/work_folder/realRealestate/public/virtual-office.php">All Virtual Packages</a></li>
                 </ul>
             </div>
             <div class="footer-col">

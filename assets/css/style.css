@@ -140,6 +140,16 @@ h6 {
     font-weight: 800;
 }
 
+.logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
 .logo-text {
     color: var(--text-dark);
 }
